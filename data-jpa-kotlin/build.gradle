@@ -16,7 +16,13 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-	implementation("com.querydsl:querydsl-jpa")
+	implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
+	implementation("org.springframework.data:spring-data-commons:3.0.0-GH-2717-SNAPSHOT") {
+		force true
+	}
+	implementation("org.springframework.data:spring-data-jpa:3.0.x-GH-2673-SNAPSHOT") {
+		force true
+	}
 
 	runtimeOnly("com.h2database:h2")
 

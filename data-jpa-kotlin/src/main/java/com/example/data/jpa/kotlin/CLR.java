@@ -6,6 +6,7 @@ import java.util.Set;
 
 import com.example.data.jpa.kotlin.model.Author;
 import com.example.data.jpa.kotlin.model.Book;
+import com.example.data.jpa.kotlin.model.QAuthor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,7 @@ class CLR implements CommandLineRunner {
 		listAllAuthors();
 		findById(authors);
 		findByPartialName();
+		findByQKlass();
 		queryFindByName();
 		deleteAll();
 	}
@@ -50,6 +52,12 @@ class CLR implements CommandLineRunner {
 
 		System.out.printf("findByPartialName(): author1 = %s%n", author1);
 		System.out.printf("findByPartialName(): author2 = %s%n", author2);
+	}
+
+	private void findByQKlass() {
+		Author author1 = this.authorRepository.findOne(QAuthor.author.name.eq("sh lo")).orElse(null);
+
+		System.out.printf("findByQKlass(): author1 = %s%n", author1);
 	}
 
 	private void findById(List<Author> authors) {
