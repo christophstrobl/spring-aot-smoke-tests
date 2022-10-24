@@ -32,7 +32,7 @@ import org.springframework.stereotype.Component;
 public class CLR implements CommandLineRunner {
 
 	@Autowired
-	private ElasticsearchOperations operations;
+	private ElasticsearchOperations elasticsearchOperations;
 
 	@Autowired
 	private ConferenceRepository repository;
@@ -43,8 +43,8 @@ public class CLR implements CommandLineRunner {
 		{
 			System.out.println("refresh index");
 			repository.deleteAll();
-			operations.indexOps(Conference.class).delete();
-			operations.indexOps(Conference.class).create();
+			elasticsearchOperations.indexOps(Conference.class).delete();
+			elasticsearchOperations.indexOps(Conference.class).create();
 		}
 
 		{
@@ -63,7 +63,7 @@ public class CLR implements CommandLineRunner {
 			repository.save(Conference.builder().date("2014-10-04").name("JDD14 - Cracow")
 					.keywords(Arrays.asList("java", "spring")).location(new GeoPoint(50.0646501D, 19.9449799)).build());
 
-			System.out.println("repository.count(): " + repository.count());
+			System.out.printf("repository.count(): %s%n", repository.count());
 		}
 
 		String expectedDate = "2014-10-29";
@@ -73,15 +73,15 @@ public class CLR implements CommandLineRunner {
 
 		{
 			System.out.println("\n--- TEMPLATE FIND ---");
-			SearchHits<Conference> result = operations.search(query, Conference.class,
+			SearchHits<Conference> result = elasticsearchOperations.search(query, Conference.class,
 					IndexCoordinates.of("conference-index"));
-			System.out.println("result.size(): " + result.getSearchHits().size());
+			System.out.printf("template.search(): %s%n", result.getSearchHits().size());
 		}
 
 		{
 			System.out.println("\n--- REPOSITORY FINDER ---");
 			List<Conference> result = repository.findByKeywordsContaining("spring");
-			System.out.println("result.size(): " + result.size());
+			System.out.printf("repository.finder(): %s%n", result.size());
 		}
 
 		System.out.println("DONE");

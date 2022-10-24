@@ -13,9 +13,23 @@ import org.springframework.aot.smoketest.support.junit.AotSmokeTest;
 class DataElasticsearchApplicationAotTests {
 
 	@Test
-	void findAll(AssertableOutput output) {
+	void repoCount(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
-			assertThat(output).hasSingleLineContaining("TODO");
+			assertThat(output).hasSingleLineContaining("repository.count(): 5");
+		});
+	}
+
+	@Test
+	void templateOps(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasSingleLineContaining("template.search(): 3");
+		});
+	}
+
+	@Test
+	void repoFind(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasSingleLineContaining("repository.finder(): 2");
 		});
 	}
 
