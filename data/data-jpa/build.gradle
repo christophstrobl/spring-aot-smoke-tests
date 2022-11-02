@@ -3,6 +3,7 @@ plugins {
 	id 'org.springframework.boot'
 	id 'org.springframework.aot.smoke-test'
 	id 'org.graalvm.buildtools.native'
+	id 'org.hibernate.orm' version '6.1.5.Final'
 }
 
 dependencies {
@@ -14,4 +15,11 @@ dependencies {
 
 	appTestImplementation(project(":aot-smoke-test-support"))
 	appTestImplementation("org.awaitility:awaitility:4.2.0")
+}
+
+hibernate {
+	enhancement {
+		lazyInitialization = true
+		dirtyTracking = true
+	}
 }
