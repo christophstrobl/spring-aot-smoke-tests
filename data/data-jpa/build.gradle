@@ -5,9 +5,16 @@ plugins {
 	id 'org.graalvm.buildtools.native'
 }
 
+repositories {
+	mavenLocal()
+}
+
 dependencies {
 	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("org.springframework.data:spring-data-jpa:3.1.x-HIBERNATE-BYTECODE-PROVIDER-SNAPSHOT") {
+		force true
+	}
 	runtimeOnly("com.h2database:h2")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")

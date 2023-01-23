@@ -80,4 +80,11 @@ class DataJpaApplicationAotTests {
 		});
 	}
 
+	@Test
+	void lazyLoading(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasLineContaining("lazy-loading-proxy-works");
+		});
+	}
+
 }
