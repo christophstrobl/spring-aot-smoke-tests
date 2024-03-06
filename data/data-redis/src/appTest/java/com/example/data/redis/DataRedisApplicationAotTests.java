@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.*;
 
 import java.time.Duration;
 
+import org.assertj.core.api.Assertions;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 import org.springframework.aot.smoketest.support.assertj.AssertableOutput;
@@ -61,6 +62,14 @@ class DataRedisApplicationAotTests {
 			assertThat(output).hasSingleLineContaining("findAll(): Person{firstname='first-1', lastname='last-1'}")
 				.hasSingleLineContaining("findAll(): Person{firstname='first-2', lastname='last-2'}")
 				.hasSingleLineContaining("findAll(): Person{firstname='first-3', lastname='last-3'}");
+		});
+	}
+
+	@Test
+	void findAllSorted(AssertableOutput output) {
+
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasSingleLineContaining("findAllSorted(): [last-3, last-2, last-1]");
 		});
 	}
 

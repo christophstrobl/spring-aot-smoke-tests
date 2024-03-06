@@ -1,9 +1,14 @@
 package com.example.data.redis;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.redis.connection.SortParameters.Order;
 import org.springframework.data.redis.core.BoundValueOperations;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -53,6 +58,12 @@ class CLR implements CommandLineRunner {
 		for (PersonProjection person : this.personRepository.findProjectionByLastname("last-2")) {
 			System.out.printf("findProjectionByLastname(): %s%n", person.getFirstname());
 		}
+
+		List<String> result = this.personRepository.findAll(Sort.by(Direction.DESC, "firstname"))
+			.stream()
+			.map(Person::getLastname)
+			.collect(Collectors.toList());
+		System.out.printf("findAllSorted(): %s%n", result);
 	}
 
 	private void jsonSerializer() {

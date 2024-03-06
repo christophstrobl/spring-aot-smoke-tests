@@ -18,8 +18,10 @@ package com.example.data.redis;
 import java.util.List;
 
 import org.springframework.data.repository.ListCrudRepository;
+import org.springframework.data.repository.ListPagingAndSortingRepository;
 
-public interface PersonRepository extends ListCrudRepository<Person, String> {
+public interface PersonRepository
+		extends ListCrudRepository<Person, String>, ListPagingAndSortingRepository<Person, String> {
 
 	List<Person> findByLastname(String lastname);
 
