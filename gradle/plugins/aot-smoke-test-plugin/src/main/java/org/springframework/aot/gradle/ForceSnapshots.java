@@ -51,6 +51,10 @@ final class ForceSnapshots implements Action<DependencyResolveDetails> {
 	public void execute(DependencyResolveDetails dependency) {
 		ModuleVersionSelector requested = dependency.getRequested();
 		String version = requested.getVersion();
+		if(requested.getName().equals("spring-data-jpa")) {
+			dependency.useVersion("4.0.0-SNAPSHOT");
+			return;
+		}
 		if (version == null || version.isBlank()) {
 			return;
 		}

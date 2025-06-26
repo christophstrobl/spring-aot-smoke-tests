@@ -16,15 +16,36 @@
 
 package com.example.data.jpa;
 
+//import com.example.data.jpa.DataJpaApplication.Hints;
+import org.springframework.aot.hint.MemberCategory;
+import org.springframework.aot.hint.RuntimeHints;
+import org.springframework.aot.hint.RuntimeHintsRegistrar;
+import org.springframework.aot.hint.TypeReference;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ImportRuntimeHints;
+import org.springframework.data.jpa.repository.query.QueryEnhancerSelector.DefaultQueryEnhancerSelector;
 
 @SpringBootApplication
+// @ImportRuntimeHints(Hints.class)
 public class DataJpaApplication {
 
 	public static void main(String[] args) throws InterruptedException {
 		SpringApplication.run(DataJpaApplication.class, args);
 		Thread.currentThread().join(); // To be able to measure memory consumption
 	}
+
+	// static class Hints implements RuntimeHintsRegistrar {
+	//
+	// @Override
+	// public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
+	// // hints.reflection()//
+	// // .registerType(TypeReference.of(DefaultQueryEnhancerSelector.class),
+	// // hint -> hint.withMembers(MemberCategory.INVOKE_PUBLIC_CONSTRUCTORS,
+	// // MemberCategory.INVOKE_DECLARED_CONSTRUCTORS,
+	// // MemberCategory.INVOKE_PUBLIC_METHODS));
+	// }
+	//
+	// }
 
 }
